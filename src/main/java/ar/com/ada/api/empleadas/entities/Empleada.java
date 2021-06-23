@@ -3,15 +3,36 @@ package ar.com.ada.api.empleadas.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.annotation.Generated;
+import javax.persistence.*;
+
+@Entity
+@Table(name= "empleada")
 public class Empleada {
+
+    @Id
+    @Column(name= "empleada_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer empleadaId;
+    
     private String nombre;
+    
     private Integer edad;
+    
+    @ManyToOne// join columns van donde esta la FK
+    @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
     private Categoria categoria;
+    
     private BigDecimal sueldo;
+    
     private int estado;
+    
+    @Column(name= "fecha_alta")
     private Date fechaAlta;
-    private Date fechaBaja;    
+
+    @Column(name= "fecha_baja")
+    private Date fechaBaja;  
+
 
     public Integer getEmpleadaId() {
         return empleadaId;
