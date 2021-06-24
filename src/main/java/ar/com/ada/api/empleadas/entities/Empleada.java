@@ -25,6 +25,7 @@ public class Empleada {
     
     private BigDecimal sueldo;
     
+    @Column(name= "estado_id")
     private int estado;
     
     @Column(name= "fecha_alta")
@@ -103,7 +104,7 @@ public class Empleada {
 
     private enum EstadoEmpleadaEnum {
         ACTIVO(1), 
-        INACTIVO(2);
+        BAJA(2);
     
         private final int value;
 
