@@ -14,13 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name= "categoria")
 public class Categoria {
 
     @Id
-    @Column(name= "categoria_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "categoria_id")
+    
     private Integer categoriaId;
 
     private String nombre;
@@ -29,6 +32,7 @@ public class Categoria {
     private BigDecimal sueldoBase;
 
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Empleada> empleadas= new ArrayList<>();
 
 

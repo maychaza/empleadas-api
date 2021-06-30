@@ -22,6 +22,7 @@ public class CategoriaController {
     public ResponseEntity<?> crearCategoria (@RequestBody Categoria categoria){
         
         GenericResponse respuesta = new GenericResponse();
+        
         service.crearCategoria(categoria);
 
         respuesta.isOk= true;

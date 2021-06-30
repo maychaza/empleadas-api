@@ -11,8 +11,8 @@ import javax.persistence.*;
 public class Empleada {
 
     @Id
-    @Column(name= "empleada_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name= "empleada_id")
     private Integer empleadaId;
     
     private String nombre;
@@ -102,7 +102,7 @@ public class Empleada {
     }
 
 
-    private enum EstadoEmpleadaEnum {
+    public enum EstadoEmpleadaEnum {
         ACTIVO(1), 
         BAJA(2);
     
