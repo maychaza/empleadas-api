@@ -13,25 +13,24 @@ import ar.com.ada.api.empleadas.repos.*;
 public class CategoriaService {
 
     @Autowired
-    private CategoriaRepository repository;
+    private CategoriaRepository repo;
 
-    public void crearCategoria(Categoria categoria){
-        repository.save(categoria);
+    public void crearCategoria(Categoria categoria) {
+        repo.save(categoria);
     }
 
-    public List<Categoria> traerCategorias(){
-        return repository.findAll();
+    public List<Categoria> traerCategorias() {
+        return repo.findAll();
     }
 
-    public Categoria buscarCategoria(Integer categoriaId){
-        
-        Optional<Categoria> resultado = repository.findById(categoriaId);
-        Categoria categoria= null; //nulo predefinidamente
+    public Categoria buscarCategoria(Integer categoriaId) {
 
-        if (resultado.isPresent()) //pregunta si tiene la info
-        categoria = resultado.get(); // si la tiene, la guarda en la variable
+        Optional<Categoria> resultado = repo.findById(categoriaId);
+        Categoria categoria = null; // nulo predefinidamente
+
+        if (resultado.isPresent()) // pregunta si tiene la info
+            categoria = resultado.get(); // si la tiene, la guarda en la variable
         return categoria;
 
     }
-    
 }

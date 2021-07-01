@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,9 +41,7 @@ public class EmpleadaController {
         Categoria categoria= categoriaService.buscarCategoria(empleadaInfo.categoriaId);
         empleada.setCategoria(categoria);
         empleada.setEstado(EstadoEmpleadaEnum.ACTIVO);
-        
-        service.crearEmpleada(empleada);
-
+     
         GenericResponse respuesta = new GenericResponse();
         service.crearEmpleada(empleada);
 
@@ -56,5 +56,35 @@ public class EmpleadaController {
     public ResponseEntity<List<Empleada>> traerEmpleadas() {
         return ResponseEntity.ok(service.traerEmpleadas());
 
+    }
+
+    @GetMapping("/empleados/{id}")  //path variable
+    public ResponseEntity<Empleada> getEmpleadaPorId(@PathVariable Integer id){  //no olvidar anotacion
+        Empleada empleada = service.buscarEmpleada(id);
+
+        return ResponseEntity.ok(empleada);
+    }
+
+    @DeleteMapping("/empleados/{id}")
+    public ResponseEntity<?> bajaEmpleada (@PathVariable Integer id){
+        
+        service.bajaEmpleadaPorId(id);
+
+        GenericResponse respuesta = new GenericResponse();
+
+        respuesta.isOk = true;
+        respuesta.message = "Se eliminó a la empleada con éxito";
+       
+        return ResponseEntity.ok(respuesta);
+
+    }
+
+    @GetMapping("/empleados/categorias/{catId}")
+    public ResponseEntity<List<Empleada>> obtenerEmpleadasPorCategoria(@PathVariable Integer catId){
+        
+        List<Empleada> empleadas = service.traerEmpleadaPorCategoria(catId);
+       
+        return ResponseEntity.ok(empleadas);
+        
     }
 }

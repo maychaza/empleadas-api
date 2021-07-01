@@ -3,7 +3,6 @@ package ar.com.ada.api.empleadas.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.annotation.Generated;
 import javax.persistence.*;
 
 @Entity
