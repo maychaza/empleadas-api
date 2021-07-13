@@ -1,5 +1,6 @@
 package ar.com.ada.api.empleadas.controllers;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -9,13 +10,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ada.api.empleadas.entities.Categoria;
 import ar.com.ada.api.empleadas.entities.Empleada;
 import ar.com.ada.api.empleadas.entities.Empleada.EstadoEmpleadaEnum;
-import ar.com.ada.api.empleadas.models.request.InfoEmpleadaNueva;
+import ar.com.ada.api.empleadas.models.request.*;
 import ar.com.ada.api.empleadas.models.response.GenericResponse;
 import ar.com.ada.api.empleadas.services.CategoriaService;
 import ar.com.ada.api.empleadas.services.EmpleadaService;
@@ -86,5 +88,22 @@ public class EmpleadaController {
        
         return ResponseEntity.ok(empleadas);
         
+    }
+
+    @PutMapping("/empleados/{id}/sueldos")
+    public ResponseEntity<GenericResponse> modificarSueldo(@PathVariable Integer id, @RequestBody SueldoNuevoEmpleada sueldoNuevoInfo){
+        
+        Empleada empleada = service.buscarEmpleada(id);
+
+        empleada.setSueldo(sueldoNuevoInfo.sueldoNuevo);
+
+        service.guardar(empleada);
+
+        GenericResponse respuesta= new GenericResponse();
+        respuesta.isOk = true;
+        respuesta.message = "Sueldo actualizado";
+
+        return ResponseEntity.ok(respuesta);
+
     }
 }
