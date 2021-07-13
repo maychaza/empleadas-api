@@ -61,8 +61,11 @@ public class EmpleadaController {
     }
 
     @GetMapping("/empleados/{id}")  //path variable
-    public ResponseEntity<Empleada> getEmpleadaPorId(@PathVariable Integer id){  //no olvidar anotacion
+    public ResponseEntity<?> getEmpleadaPorId(@PathVariable Integer id){  //no olvidar anotacion
         Empleada empleada = service.buscarEmpleada(id);
+        if (empleada == null){
+            return ResponseEntity.notFound().build();
+        }
 
         return ResponseEntity.ok(empleada);
     }
